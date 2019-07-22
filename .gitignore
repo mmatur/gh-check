@@ -1,0 +1,6 @@
+vendor/
+.idea/
+cover.out
+temp/
+dist/
+gh-check
