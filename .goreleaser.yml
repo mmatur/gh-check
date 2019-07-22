@@ -1,0 +1,35 @@
+project_name: gh-check
+
+builds:
+  - binary: gh-check
+    ldflags:
+      - -s -w -X github.com/mmatur/gh-check/cmd/version.version={{.Version}} -X github.com/mmatur/gh-check/cmd/version.commit={{.Commit}} -X github.com/mmatur/gh-check/cmd/version.date={{.Date}}
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^doc:'
+      - '^chore:'
+      - '^test:'
+      - '^tests:'
+
+archives:
+  - id: default
+    name_template: '{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - LICENSE
+
+#release:
+#  disable: true
