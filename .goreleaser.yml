@@ -2,8 +2,11 @@ project_name: gh-check
 
 builds:
   - binary: gh-check
+    main: ./cmd/
     ldflags:
-      - -s -w -X github.com/mmatur/gh-check/cmd/version.version={{.Version}} -X github.com/mmatur/gh-check/cmd/version.commit={{.Commit}} -X github.com/mmatur/gh-check/cmd/version.date={{.Date}}
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    env:
+      - GO111MODULE=on
     goos:
       - windows
       - darwin
