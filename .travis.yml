@@ -1,17 +1,28 @@
 language: go
 
-go:
-  - 1.13.x
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+cache:
+  directories:
+    - $GOPATH/pkg/mod
+
+matrix:
+  fast_finish: true
+  include:
+    - go: 1.13.x
+      env: STABLE=true
+    - go: 1.x
+    - go: tip
+  allow_failures:
+    - go: tip
 
 sudo: false
 
 env:
   - GO111MODULE=on
-
-notifications:
-  email:
-    on_success: never
-    on_failure: change
 
 before_install:
   # Install linters and misspell
@@ -19,8 +30,10 @@ before_install:
   - golangci-lint --version
 
 install:
-  - echo "TRAVIS_GO_VERSION=$TRAVIS_GO_VERSION"
-  - make dependencies
+  - go mod tidy
+  - git diff --exit-code go.mod
+  - git diff --exit-code go.sum
+  - go mod download
 
 deploy:
   - provider: script
@@ -28,4 +41,4 @@ deploy:
     script: curl -sL https://git.io/goreleaser | bash
     on:
       tags: true
-      condition: $TRAVIS_GO_VERSION =~ ^1\.x$
+      condition: $STABLE = true

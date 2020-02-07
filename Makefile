@@ -16,9 +16,6 @@ test: clean
 clean:
 	rm -rf dist/ cover.out
 
-dependencies:
-	go mod vendor
-
 build: clean
 	@echo Version: $(VERSION) $(BUILD_DATE)
 	go build -v -ldflags '-X "main.version=${VERSION}" -X "main.commit=${SHA}" -X "main.date=${BUILD_DATE}"' -o gh-check ./cmd
