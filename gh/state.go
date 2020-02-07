@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v29/github"
 )
 
 const (
@@ -26,7 +26,6 @@ const (
 // HasReviewsApprove check if a PR have the required number of review
 func (g *GHub) HasReviewsApprove(ctx context.Context, pr *github.PullRequest, minReview int) error {
 	if minReview != 0 {
-
 		owner := pr.Base.Repo.Owner.GetLogin()
 		repositoryName := pr.Base.Repo.GetName()
 		prNumber := pr.GetNumber()
@@ -87,7 +86,6 @@ func (g *GHub) IsUpToDateBranch(ctx context.Context, pr *github.PullRequest) (bo
 
 // GetStatus provide checks status (CI)
 func (g *GHub) GetStatus(ctx context.Context, pr *github.PullRequest) (string, error) {
-
 	owner := pr.Base.Repo.Owner.GetLogin()
 	repositoryName := pr.Base.Repo.GetName()
 	prRef := pr.Head.GetSHA()

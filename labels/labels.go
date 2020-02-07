@@ -23,7 +23,7 @@ func Labels(cfg *Config) error {
 	if cfg.Debug {
 		log.Println("Creating Github client")
 	}
-	client := gh.NewGitHubClient(ctx, cfg.GithubToken, nil)
+	client := gh.NewGitHubClient(ctx, cfg.GithubToken)
 	ghub := gh.NewGHub(client, cfg.Debug)
 
 	return ghub.HasLabels(ctx, cfg.Owner, cfg.Name, cfg.Number, cfg.Labels)

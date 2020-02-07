@@ -28,6 +28,8 @@
     "lll",
     "gas",
     "dupl",
+    "gomnd",
+    "wsl",
     "prealloc",
     "maligned",
     "gochecknoinits",

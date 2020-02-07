@@ -4,9 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"net/url"
 
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v29/github"
 	"golang.org/x/oauth2"
 )
 
@@ -49,8 +48,8 @@ func (g *GHub) HasLabels(ctx context.Context, owner string, name string, number 
 	return nil
 }
 
-// NewGitHubClient create a new GitHub client
-func NewGitHubClient(ctx context.Context, token string, gitHubURL *url.URL) *github.Client {
+// NewGitHubClient create a new GitHub client.
+func NewGitHubClient(ctx context.Context, token string) *github.Client {
 	var client *github.Client
 	if len(token) == 0 {
 		client = github.NewClient(nil)
@@ -61,11 +60,6 @@ func NewGitHubClient(ctx context.Context, token string, gitHubURL *url.URL) *git
 		tc := oauth2.NewClient(ctx, ts)
 		client = github.NewClient(tc)
 	}
-
-	if gitHubURL != nil {
-		client.BaseURL = gitHubURL
-	}
-
 	return client
 }
 
